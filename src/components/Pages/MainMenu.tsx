@@ -10,9 +10,12 @@ const { setUserName, setCategory, setDifficulty, userName, category, difficulty,
 const [isCategoryActive, setCategoryActive] = useState<boolean>(false);
 const [isDifficultyActive, setDifficultyActive] = useState<boolean>(false);
 const [colorTheme, setColorTheme] = useState('');
+
 useEffect(() => {
     setFinished(false)
-    setUserName('User');
+    if(userName === 'User' || undefined){
+        setUserName('User');
+    }
     if(difficulty === 'easy'){
         setColorTheme('green');
     }else if(difficulty === 'medium'){
