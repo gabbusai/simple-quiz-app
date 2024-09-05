@@ -40,6 +40,12 @@ const openDifficulty = () => {
     setDifficultyActive(!isDifficultyActive);
 }
 
+const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+        handleContextDetails();
+    }
+}
+
 
 
     return (
@@ -125,6 +131,8 @@ const openDifficulty = () => {
         className={`text-[30px] text-center rounded-lg shadow-md h-14 my-2 bg-slate-50  
         font-semibold font-pixelFont outline-dashed tracking-widest`}
         type="text" value={userName}
+        autoFocus
+        onKeyDown={handleKeyPress}
         onChange={(e) => setUserName(e.target.value)}/>
         <p className="text-[60px] text-zinc-50 rounded-full p-5 mt-5"
         style={{ 

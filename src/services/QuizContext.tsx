@@ -71,7 +71,12 @@ export default function QuizContextProvider({children}: PropsWithChildren) {
         setDifficultyState(difficulty);
     }
     const increasePoints = (pointsValue : number) =>{
-        setPoints(points + pointsValue);
+        let multiplier = 0;
+        multiplier = difficulty === 'easy' ? 1 : 
+            difficulty === 'medium' ? 2 : 
+            difficulty === 'hard' ? 3 : 1;
+        
+        setPoints(points + pointsValue * multiplier);
     }
     const decreasePoints = () => {
         setHealth(health - 1);

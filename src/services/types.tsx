@@ -118,7 +118,9 @@ export function useSanitizeText(text: string) {
     .replace(/&oacute;/g, "ó")
     .replace(/&uacute;/g, "ú")
     .replace(/&ntilde;/g, "ñ")  
-
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    
     .replace(/&uuml;/g, "ü")
     .replace(/&Agrave;/g, "À")
     .replace(/&Egrave;/g, "È")

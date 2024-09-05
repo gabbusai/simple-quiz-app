@@ -1,41 +1,103 @@
 import { useEffect, useState } from 'react'
 import { useQuizContext } from '../services/QuizContext'
 import { useNavigate } from 'react-router';
-
-
+import CircularProgress from './CircularProgress';
+import { BiSolidParty } from "react-icons/bi";
+import { FaFaceSadCry } from "react-icons/fa6";
+import { IoMdAlert } from "react-icons/io";
+import { SiLevelsdotfyi } from "react-icons/si";
+import { GrScorecard } from "react-icons/gr";
 function Overview() {
-  const {points, userName, resetContext} = useQuizContext();
-  const [passed, setPassed] = useState<boolean>();
+  const {points, userName, difficulty, resetContext} = useQuizContext();
+  const [passed, setPassed] = useState<boolean>(false);
+  const [passingValue, setPassingValue] = useState(0)
+  const [maxValue, setMaxValue ] = useState(0)
+  const [percentage, setPercentage] = useState(0)
   const navigate = useNavigate();
+  
+  let multiplier = 0;
+  multiplier = difficulty === 'easy' ? 1 : 
+  difficulty === 'medium' ? 2 : 
+  difficulty === 'hard' ? 3 : 1;
+
+  let colorValue = difficulty === 'easy' ? '#22c55e' : 
+  difficulty === 'medium' ? '#f97316' : 
+  difficulty === 'hard' ? '#ef4444' : '#22c55e';
+
+  const calculatePassingValue = () => {
+
+
+    setMaxValue(multiplier * 200 * 10 );
+    setPassingValue((multiplier * 200 * 10 )/ 2);
+    setPercentage((points / maxValue) * 100);
+  }
+
+  const restart = () => {
+    resetContext();
+    navigate('/')
+  }
   useEffect(() => {
-    if (points >= 1000) {
+    calculatePassingValue()
+    if (points >= passingValue) {
       setPassed(true);
     } else {
       setPassed(false);
     }
   })
+  //data we can use userName, points, passed (from context)
+  //variables we created here, maxValue, passingValue, percentage
   return (
-    <div className='w-screen h-screen bg-zinc-950 grid m-auto '>
-      <div className=" p-8 h-[40vh] w-[600px] bg-slate-500 mx-auto my-12 grid place-items-center shadow-lg rounded-lg">
-      <h1 className='text-white text-[32px]'>Hello, {userName},</h1>
-      <h2 className='text-white text-[24px]'>Your score is: {points}</h2>
-      {
-        passed ? 
-        <h1 className='text-black bg-green-300 p-5 text-center w-[150px] m-auto rounded-2xl text-[32px]'>You passed</h1> : 
-        <h1 className='text-white bg-red-500 p-5 w-[100%] m-auto rounded-2xl text-center text-[32px]'>You failed</h1>
-      }
+    <div className='w-screen h-screen bg-zinc-950 grid'>
 
-      <button onClick={() => {
-        resetContext();
-        navigate('/')
-      }}
-      className={`w-32 h-12 bg-green-500 text-white rounded-2xl my-4 mx-auto`}>
-        Restart
-      </button>
+      <div className=" p-8 h-[80vh] w-[80vw] bg-zinc-50 mx-auto my-12 grid place-items-center shadow-lg rounded-2xl"
+      >
+      <h1 className="text-[65px] font-pixelFont font-semibold italic text-zinc-800 tracking-widest flex">
+      <IoMdAlert size={95} />
+        {userName}, Your Quiz Results:
+      </h1>
+
+        <div className="grid grid-cols-2">
+          <CircularProgress percentage={percentage} passed={passed}/>
+          <div className="flex flex-col items-center gap-y-4">
+                {
+                  passed ? 
+                    <div className="capitalize font-pixelFont text-[52px] font-semibold 
+                    text-green-500 decoration-dashed underline flex align-middle">
+                    <BiSolidParty size={80}/>You Passed!
+                    </div>
+                    :
+                    <div className="capitalize font-pixelFont text-[52px] font-semibold 
+                    text-red-500 decoration-dashed line-through flex align-middle">
+                    <FaFaceSadCry size={80}/> You Failed!
+                    </div>
+                }
+
+              <div className={`capitalize flex gap-x-2 font-pixelFont 
+                ${passed ? 'text-green-500' : 'text-red-500'}
+                `}>
+                <GrScorecard size={48}/>
+                <p className="text-[38px]">
+                {points} / {maxValue} points
+                </p>
+              </div>
+
+              <div className={`capitalize flex gap-x-2 font-pixelFont`}
+              style={{color: colorValue}}>
+                <SiLevelsdotfyi size={48}/>
+                <p className="text-[38px]">
+                  {difficulty} Mode
+                </p>
+              </div>
+              
+          </div>
+        </div>
+
+
+        <button className="py-3 px-10 rounded-md text-white bg-green-500 hover:bg-green-700"
+            onClick={restart}>
+              Replay
+        </button>
       </div>
-
-
-
     </div>
   )
 }
