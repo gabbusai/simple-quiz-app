@@ -58,10 +58,16 @@ function QuestionComponent({currentQuestion, updateCurNum, curNum}: QuestionComp
                         <motion.div key={answer} className={`h-32 w-[100%] py-2 px-4 rounded-xl text-[28px]
                         font-pixelFont font-normal   border-2 border-stone-950
                         cursor-pointer grid place-items-center 
-                        ${selectedAnswer === answer ? 'bg-green-500 border-none text-white shadow-md  shadow-green-500': 'text-slate-800'}`}
+                        ${selectedAnswer === answer ? `bg-green-500  text-white shadow-md shadow-green-500 
+                            3px dashed white border-2 border-dashed border-zinc-50`
+                            : 'text-slate-800'}`}
                         animate={{ 
                             scale: selectedAnswer === answer ? 1.03 : 1
                           }}
+                        whileHover={{ 
+                            scale: 0.97,
+                            rotateZ: ["-2deg","2deg", "0deg"]
+                         }}
                         onClick={() => setSelectedAnswer(answer)}>
                             {useSanitizeText(answer)}
                         </motion.div>

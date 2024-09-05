@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { FaSortDown, FaSortUp } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 function MainMenu() {
-const { setUserName, setCategory, setDifficulty, userName, category, difficulty, setFinished, isFinished } = useQuizContext();
+const { setUserName, setCategory, setDifficulty, userName, category, difficulty, setFinished } = useQuizContext();
 const [isCategoryActive, setCategoryActive] = useState<boolean>(false);
 const [isDifficultyActive, setDifficultyActive] = useState<boolean>(false);
 const [colorTheme, setColorTheme] = useState('');
