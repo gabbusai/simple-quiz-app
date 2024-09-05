@@ -61,9 +61,13 @@ function QuestionComponent({currentQuestion, updateCurNum, curNum}: QuestionComp
                         ${selectedAnswer === answer ? `bg-green-500  text-white shadow-md shadow-green-500 
                             3px dashed white border-2 border-dashed border-zinc-50`
                             : 'text-slate-800'}`}
-                        animate={{ 
+                        animate={{
+                            rotateZ: "0deg",
                             scale: selectedAnswer === answer ? 1.03 : 1
                           }}
+                        initial={{ 
+                            rotateZ: "0deg"
+                         }}
                         whileHover={{ 
                             scale: 0.97,
                             rotateZ: ["-2deg","2deg", "0deg"]
