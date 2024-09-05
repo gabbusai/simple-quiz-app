@@ -12,6 +12,7 @@ const [isDifficultyActive, setDifficultyActive] = useState<boolean>(false);
 const [colorTheme, setColorTheme] = useState('');
 useEffect(() => {
     setFinished(false)
+    setUserName('User');
     if(difficulty === 'easy'){
         setColorTheme('green');
     }else if(difficulty === 'medium'){
