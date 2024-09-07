@@ -13,9 +13,9 @@ type CircProgType = {
     const VALUES = [0,percentage]
     
     const progress = useMotionValue(VALUES[0])
-    const passedColor = passed ? '#22c55e' : '#ef4444';
-    const colors = ['#2c2c2c', passedColor];
-    const colorValue = useMotionValue(colors[0]);
+    //const passedColor = passed ? '#22c55e' : '#ef4444';
+    const colors = ['#ef4444', '#22c55e'];
+    const colorValue = useTransform(progress, [0, 100], [colors[0], colors[1]]);
 
 
     const circleProgress = useTransform(progress, [0,100], [0,360])
@@ -46,7 +46,7 @@ type CircProgType = {
         ref={circleRef}
             style={{  
                 backgroundImage: bg01,
-                scale: 1
+                scale: 1,
             }}  
         >
             <div className="shadow-sm h-40 w-40 rounded-full bg-[rgb(237,237,237)] "/>

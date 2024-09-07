@@ -7,6 +7,7 @@ import { FaFaceSadCry } from "react-icons/fa6";
 import { IoMdAlert } from "react-icons/io";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { GrScorecard } from "react-icons/gr";
+import { motion } from 'framer-motion';
 function Overview() {
   const {points, userName, difficulty, resetContext} = useQuizContext();
   const [passed, setPassed] = useState<boolean>(false);
@@ -25,6 +26,7 @@ function Overview() {
   difficulty === 'hard' ? '#ef4444' : '#22c55e';
 
   const calculatePassingValue = () => {
+
 
 
     setMaxValue(multiplier * 200 * 10 );
@@ -51,7 +53,7 @@ function Overview() {
 
       <div className=" p-8 h-[80vh] w-[80vw] bg-zinc-50 mx-auto my-12 grid place-items-center shadow-lg rounded-2xl"
       >
-      <h1 className="text-[65px] font-pixelFont font-semibold italic text-zinc-800 tracking-widest flex">
+      <h1 className="text-[65px] font-pixelFont font-semibold italic tracking-widest flex text-zinc-800">
       <IoMdAlert size={95} />
         {userName}, Your Quiz Results:
       </h1>
@@ -93,10 +95,24 @@ function Overview() {
         </div>
 
 
-        <button className="py-3 px-10 rounded-md text-white bg-green-500 hover:bg-green-700"
-            onClick={restart}>
+        <motion.button className="py-3 px-10 rounded-md text-white text-[40px]
+        bg-green-500 hover:bg-green-700 font-pixelFont h-24 w-44"
+          onClick={restart}
+          initial={{ 
+            border: '0px dashed white',
+            scale: 1,
+            fontWeight: 'normal'
+            
+           }}
+          whileHover={{
+            border: '4px dashed white',
+            scale: [0.9, 1.04],
+            fontWeight: 'semiBold',
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.6)'
+           }}
+          >
               Replay
-        </button>
+        </motion.button>
       </div>
     </div>
   )
